@@ -11,12 +11,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Grupo.class}, version = 1, exportSchema = false)
+@Database(entities = {GrupoEntity.class}, version = 1, exportSchema = false)
 public abstract class GrupoRoomDatabase extends RoomDatabase {
 
-    public static final String BASE_DATOS = Grupo.TABLA + ".db";
+    public static final String BASE_DATOS = GrupoEntity.TABLA + ".db";
 
-    public abstract GrupoDAO grupoDAO();
+    public abstract IGrupoDAO grupoDAO();
 
     private static volatile GrupoRoomDatabase INSTANCE;
 
@@ -55,7 +55,7 @@ public abstract class GrupoRoomDatabase extends RoomDatabase {
                         public void run() {
                             // Populate the database in the background.
                             // If you want to start with more groups, just add them.
-                            GrupoDAO dao = INSTANCE.grupoDAO();
+                            IGrupoDAO dao = INSTANCE.grupoDAO();
                         }
                     });
                 }

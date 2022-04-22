@@ -9,9 +9,9 @@ import java.util.List;
 
 public class GrupoViewModel extends AndroidViewModel {
 
-    private GrupoRepositorio mRepository;
+    private GrupoRepository mRepository;
 
-    private LiveData<List<Grupo>> mAllGrupos;
+    private LiveData<List<GrupoEntity>> mAllGrupos;
 
     /**
      * Constructor
@@ -20,7 +20,7 @@ public class GrupoViewModel extends AndroidViewModel {
      */
     public GrupoViewModel(Application application) {
         super(application);
-        mRepository = new GrupoRepositorio(application);
+        mRepository = new GrupoRepository(application);
         mAllGrupos = mRepository.getAllGrupos();
     }
 
@@ -29,11 +29,11 @@ public class GrupoViewModel extends AndroidViewModel {
      *
      * @return lista de grupos
      */
-    public LiveData<List<Grupo>> getAllGrupos() {
+    public LiveData<List<GrupoEntity>> getAllGrupos() {
         return mAllGrupos;
     }
 
-    public void insert(Grupo grupo) {
+    public void insert(GrupoEntity grupo) {
         mRepository.insert(grupo);
     }
 
@@ -41,11 +41,9 @@ public class GrupoViewModel extends AndroidViewModel {
         mRepository.deleteAll();
     }
 
-    public void deleteGrupo(Grupo grupo) {
+    public void deleteGrupo(GrupoEntity grupo) {
         mRepository.deleteGrupo(grupo);
     }
 
-//    public void update(Grupo grupo) {
-//        mRepository.update(grupo);
-//    }
+
 }

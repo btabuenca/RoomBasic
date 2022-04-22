@@ -6,26 +6,26 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class GrupoRepositorio {
-    private GrupoDAO mGrupoDao;
-    private LiveData<List<Grupo>> mGrupos;
+public class GrupoRepository {
+    private IGrupoDAO mGrupoDao;
+    private LiveData<List<GrupoEntity>> mGrupos;
 
     /**
      * Constructor
      *
      * @param application app
      */
-    public GrupoRepositorio(Application application) {
+    public GrupoRepository(Application application) {
         GrupoRoomDatabase db = GrupoRoomDatabase.getDatabase(application);
         mGrupoDao = db.grupoDAO();
         mGrupos = mGrupoDao.getAll();
     }
 
-    public LiveData<List<Grupo>> getAllGrupos() {
+    public LiveData<List<GrupoEntity>> getAllGrupos() {
         return mGrupos;
     }
 
-    public long insert(Grupo grupo) {
+    public long insert(GrupoEntity grupo) {
         return mGrupoDao.insert(grupo);
     }
 
@@ -33,7 +33,7 @@ public class GrupoRepositorio {
         mGrupoDao.deleteAll();
     }
 
-    public void deleteGrupo(Grupo grupo)  {
+    public void deleteGrupo(GrupoEntity grupo)  {
         mGrupoDao.deleteGrupo(grupo);
     }
 }

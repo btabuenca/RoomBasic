@@ -22,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import es.upm.miw.roombasic.models.Grupo;
+import es.upm.miw.roombasic.models.GrupoEntity;
 import es.upm.miw.roombasic.models.GrupoViewModel;
 import es.upm.miw.roombasic.views.GrupoListAdapter;
 
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         // Add an observer on the LiveData returned by getAlphabetizedGrupos.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        grupoViewModel.getAllGrupos().observe(this, new Observer<List<Grupo>>() {
+        grupoViewModel.getAllGrupos().observe(this, new Observer<List<GrupoEntity>>() {
             @Override
-            public void onChanged(@Nullable final List<Grupo> grupos) {
+            public void onChanged(@Nullable final List<GrupoEntity> grupos) {
                 // Update the cached copy of the grupos in the adapter.
                 adapter.setGrupos(grupos);
             }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        Grupo grupo = adapter.getGrupoAtPosition(position);
+                        GrupoEntity grupo = adapter.getGrupoAtPosition(position);
                         Snackbar.make(
                                 recyclerView,
                                 "Borrando " + grupo.getNombre(),
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_GROUP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Grupo grupo = new Grupo(data.getStringExtra(NewGroupActivity.EXTRA_REPLY));
+            GrupoEntity grupo = new GrupoEntity(data.getStringExtra(NewGroupActivity.EXTRA_REPLY));
             grupoViewModel.insert(grupo);
         } else {
             Toast.makeText(

@@ -3,8 +3,8 @@ package es.upm.miw.roombasic.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = Grupo.TABLA)
-public class Grupo {
+@Entity(tableName = GrupoEntity.TABLA)
+public class GrupoEntity {
     static public final String TABLA = "grupos";
 
     @PrimaryKey(autoGenerate = true)
@@ -12,7 +12,7 @@ public class Grupo {
 
     protected String nombre;
 
-    public Grupo(String nombre) {
+    public GrupoEntity(String nombre) {
         this.nombre = nombre;
     }
 

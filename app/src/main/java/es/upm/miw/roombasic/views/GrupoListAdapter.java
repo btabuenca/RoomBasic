@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import es.upm.miw.roombasic.R;
-import es.upm.miw.roombasic.models.Grupo;
+import es.upm.miw.roombasic.models.GrupoEntity;
 
 public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.GrupoViewHolder> {
 
@@ -26,7 +26,7 @@ public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.Grup
     }
 
     private final LayoutInflater mInflater;
-    private List<Grupo> mGrupos;
+    private List<GrupoEntity> mGrupos;
 
     /**
      * Constructor
@@ -47,7 +47,7 @@ public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.Grup
     @Override
     public void onBindViewHolder(@NonNull GrupoViewHolder holder, int position) {
         if (mGrupos != null) {
-            Grupo current = mGrupos.get(position);
+            GrupoEntity current = mGrupos.get(position);
             holder.grupoItemView.setText(current.getNombre());
         } else {
             // Covers the case of data not being ready yet.
@@ -55,7 +55,7 @@ public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.Grup
         }
     }
 
-    public void setGrupos(List<Grupo> grupos){
+    public void setGrupos(List<GrupoEntity> grupos){
         mGrupos = grupos;
         notifyDataSetChanged();
     }
@@ -72,7 +72,7 @@ public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.Grup
                 : mGrupos.size();
     }
 
-    public Grupo getGrupoAtPosition (int position) {
+    public GrupoEntity getGrupoAtPosition (int position) {
         return mGrupos.get(position);
     }
 }
