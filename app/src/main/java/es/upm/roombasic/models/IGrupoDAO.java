@@ -1,4 +1,4 @@
-package es.upm.miw.roombasic.models;
+package es.upm.roombasic.models;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

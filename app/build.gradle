@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "es.upm.miw.roombasic"
+        applicationId "es.upm.roombasic"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

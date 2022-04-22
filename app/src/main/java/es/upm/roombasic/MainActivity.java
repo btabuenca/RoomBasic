@@ -1,4 +1,4 @@
-package es.upm.miw.roombasic;
+package es.upm.roombasic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,9 +22,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import es.upm.miw.roombasic.models.GrupoEntity;
-import es.upm.miw.roombasic.models.GrupoViewModel;
-import es.upm.miw.roombasic.views.GrupoListAdapter;
+import es.upm.roombasic.models.GrupoEntity;
+import es.upm.roombasic.models.GrupoViewModel;
+import es.upm.roombasic.views.GrupoListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package es.upm.miw.roombasic.views;
+package es.upm.roombasic.views;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import es.upm.miw.roombasic.R;
-import es.upm.miw.roombasic.models.GrupoEntity;
+import es.upm.roombasic.R;
+import es.upm.roombasic.models.GrupoEntity;
 
 public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.GrupoViewHolder> {
 

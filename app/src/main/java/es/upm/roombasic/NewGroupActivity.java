@@ -1,4 +1,4 @@
-package es.upm.miw.roombasic;
+package es.upm.roombasic;
 
 import android.content.Intent;
 import android.os.Bundle;
