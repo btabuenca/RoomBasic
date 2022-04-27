@@ -11,25 +11,25 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {GrupoEntity.class}, version = 1, exportSchema = false)
-public abstract class GrupoRoomDatabase extends RoomDatabase {
+@Database(entities = {UsuariosEntity.class}, version = 1, exportSchema = false)
+public abstract class UsuariosRoomDatabase extends RoomDatabase {
 
-    public static final String BASE_DATOS = GrupoEntity.TABLA + ".db";
+    public static final String BASE_DATOS = UsuariosEntity.TABLA + ".db";
 
-    public abstract IGrupoDAO grupoDAO();
+    public abstract IUsuariosDAO grupoDAO();
 
-    private static volatile GrupoRoomDatabase INSTANCE;
+    private static volatile UsuariosRoomDatabase INSTANCE;
 
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static GrupoRoomDatabase getDatabase(final Context context) {
+    static UsuariosRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (GrupoRoomDatabase.class) {
+            synchronized (UsuariosRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            GrupoRoomDatabase.class, BASE_DATOS)
+                            UsuariosRoomDatabase.class, BASE_DATOS)
                             .addCallback(sRoomDatabaseCallback)
                             .fallbackToDestructiveMigration()
                             .allowMainThreadQueries()
@@ -55,7 +55,7 @@ public abstract class GrupoRoomDatabase extends RoomDatabase {
                         public void run() {
                             // Populate the database in the background.
                             // If you want to start with more groups, just add them.
-                            IGrupoDAO dao = INSTANCE.grupoDAO();
+                            IUsuariosDAO dao = INSTANCE.grupoDAO();
                         }
                     });
                 }

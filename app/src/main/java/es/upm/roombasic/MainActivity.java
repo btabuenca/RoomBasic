@@ -22,16 +22,16 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import es.upm.roombasic.models.GrupoEntity;
-import es.upm.roombasic.models.GrupoViewModel;
+import es.upm.roombasic.models.UsuariosEntity;
+import es.upm.roombasic.models.UsuariosViewModel;
 import es.upm.roombasic.views.GrupoListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    static String LOG_TAG = "MiW";
-    public static final int NEW_GROUP_ACTIVITY_REQUEST_CODE = 2022;
+    static String LOG_TAG = "UPM";
+    public static final int NEW_USER_ACTIVITY_REQUEST_CODE = 2022;
 
-    GrupoViewModel grupoViewModel;
+    UsuariosViewModel grupoViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Use ViewModelProviders to associate the ViewModel with the UI controller
         // Get a new or existing ViewModel from the ViewModelProvider.
-        grupoViewModel = ViewModelProviders.of(this).get(GrupoViewModel.class);
+        grupoViewModel = ViewModelProviders.of(this).get(UsuariosViewModel.class);
 
         // Add an observer on the LiveData returned by getAlphabetizedGrupos.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        grupoViewModel.getAllGrupos().observe(this, new Observer<List<GrupoEntity>>() {
+        grupoViewModel.getAll().observe(this, new Observer<List<UsuariosEntity>>() {
             @Override
-            public void onChanged(@Nullable final List<GrupoEntity> grupos) {
+            public void onChanged(@Nullable final List<UsuariosEntity> grupos) {
                 // Update the cached copy of the grupos in the adapter.
                 adapter.setGrupos(grupos);
             }
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NewGroupActivity.class);
-                startActivityForResult(intent, NEW_GROUP_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, NEW_USER_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        GrupoEntity grupo = adapter.getGrupoAtPosition(position);
+                        UsuariosEntity grupo = adapter.getGrupoAtPosition(position);
                         Snackbar.make(
                                 recyclerView,
                                 "Borrando " + grupo.getNombre(),
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                 ).show();
 
                         // Elimina el grupo
-                        grupoViewModel.deleteGrupo(grupo);
+                        grupoViewModel.delete(grupo);
                     }
                 });
 
@@ -120,8 +120,12 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_GROUP_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            GrupoEntity grupo = new GrupoEntity(data.getStringExtra(NewGroupActivity.EXTRA_REPLY));
+        if (requestCode == NEW_USER_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            String sNom = data.getStringExtra(NewGroupActivity.PARAM_NOMBRE);
+            String sPass = data.getStringExtra(NewGroupActivity.PARAM_PASSWORD);
+            float fRol = data.getFloatExtra(NewGroupActivity.PARAM_ROL, 0);
+
+            UsuariosEntity grupo = new UsuariosEntity(sNom, sPass, fRol);
             grupoViewModel.insert(grupo);
         } else {
             Toast.makeText(

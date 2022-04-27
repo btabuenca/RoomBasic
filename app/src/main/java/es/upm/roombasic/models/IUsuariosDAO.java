@@ -10,16 +10,16 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface IGrupoDAO {
-    @Query("SELECT * FROM " + GrupoEntity.TABLA)
-    LiveData<List<GrupoEntity>> getAll();
+public interface IUsuariosDAO {
+    @Query("SELECT * FROM " + UsuariosEntity.TABLA)
+    LiveData<List<UsuariosEntity>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(GrupoEntity grupo);
+    long insert(UsuariosEntity grupo);
 
-    @Query("DELETE FROM " + GrupoEntity.TABLA)
+    @Query("DELETE FROM " + UsuariosEntity.TABLA)
     void deleteAll();
 
     @Delete
-    void deleteGrupo(GrupoEntity grupo);
+    void delete(UsuariosEntity grupo);
 }
