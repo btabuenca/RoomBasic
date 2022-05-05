@@ -24,7 +24,8 @@ import java.util.List;
 
 import es.upm.roombasic.models.UsuariosEntity;
 import es.upm.roombasic.models.UsuariosViewModel;
-import es.upm.roombasic.views.GrupoListAdapter;
+import es.upm.roombasic.utils.CifradoCesar;
+import es.upm.roombasic.views.UsuariosListAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add the RecyclerView
         final RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final GrupoListAdapter adapter = new GrupoListAdapter(this);
+        final UsuariosListAdapter adapter = new UsuariosListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<UsuariosEntity> grupos) {
                 // Update the cached copy of the grupos in the adapter.
-                adapter.setGrupos(grupos);
+                adapter.setItems(grupos);
             }
         });
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewGroupActivity.class);
+                Intent intent = new Intent(MainActivity.this, NuevoUsuarioActivity.class);
                 startActivityForResult(intent, NEW_USER_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -79,18 +80,31 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                     }
 
+
+
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int position = viewHolder.getAdapterPosition();
-                        UsuariosEntity grupo = adapter.getGrupoAtPosition(position);
-                        Snackbar.make(
-                                recyclerView,
-                                "Borrando " + grupo.getNombre(),
-                                Snackbar.LENGTH_SHORT
-                                ).show();
+                        UsuariosEntity user = adapter.getGrupoAtPosition(position);
 
-                        // Elimina el grupo
-                        grupoViewModel.delete(grupo);
+                        if (direction==ItemTouchHelper.RIGHT){
+                            Snackbar.make(
+                                    recyclerView,
+                                    "Borrando " + user.getNombre(),
+                                    Snackbar.LENGTH_LONG
+                            ).show();
+                            grupoViewModel.delete(user);
+
+                        }else{
+                            CifradoCesar cc = new CifradoCesar();
+                            Snackbar.make(
+                                    recyclerView,
+                                    " Descifrando [" + user.getNombre() + "][" + user.getPassword()+ "][" + cc.descifrar(user.getPassword(), CifradoCesar.CAESARCODE_ROT) + "][" + user.getRol() +"]",
+                                    Snackbar.LENGTH_INDEFINITE
+                            ).show();
+                        }
+
+
                     }
                 });
 
@@ -121,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_USER_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            String sNom = data.getStringExtra(NewGroupActivity.PARAM_NOMBRE);
-            String sPass = data.getStringExtra(NewGroupActivity.PARAM_PASSWORD);
-            float fRol = data.getFloatExtra(NewGroupActivity.PARAM_ROL, 0);
+            String sNom = data.getStringExtra(NuevoUsuarioActivity.PARAM_NOMBRE);
+            String sPass = data.getStringExtra(NuevoUsuarioActivity.PARAM_PASSWORD);
+            float fRol = data.getFloatExtra(NuevoUsuarioActivity.PARAM_ROL, 0);
 
             UsuariosEntity grupo = new UsuariosEntity(sNom, sPass, fRol);
             grupoViewModel.insert(grupo);

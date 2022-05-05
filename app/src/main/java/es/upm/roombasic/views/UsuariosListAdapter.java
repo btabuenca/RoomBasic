@@ -14,49 +14,49 @@ import java.util.List;
 import es.upm.roombasic.R;
 import es.upm.roombasic.models.UsuariosEntity;
 
-public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.GrupoViewHolder> {
+public class UsuariosListAdapter extends RecyclerView.Adapter<UsuariosListAdapter.UsuarioViewHolder> {
 
-    class GrupoViewHolder extends RecyclerView.ViewHolder {
-        private final TextView grupoItemView;
+    class UsuarioViewHolder extends RecyclerView.ViewHolder {
+        private final TextView userItemView;
 
-        private GrupoViewHolder(View itemView) {
+        private UsuarioViewHolder(View itemView) {
             super(itemView);
-            grupoItemView = itemView.findViewById(R.id.textView);
+            userItemView = itemView.findViewById(R.id.textView);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<UsuariosEntity> mGrupos;
+    private List<UsuariosEntity> itemsList;
 
     /**
      * Constructor
      *
      * @param context context
      */
-    public GrupoListAdapter(Context context) {
+    public UsuariosListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public GrupoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new GrupoViewHolder(itemView);
+        return new UsuarioViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GrupoViewHolder holder, int position) {
-        if (mGrupos != null) {
-            UsuariosEntity current = mGrupos.get(position);
-            holder.grupoItemView.setText(current.getNombre());
+    public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
+        if (itemsList != null) {
+            UsuariosEntity current = itemsList.get(position);
+            holder.userItemView.setText(current.getNombre());
         } else {
             // Covers the case of data not being ready yet.
-            holder.grupoItemView.setText("No Group");
+            holder.userItemView.setText("No item");
         }
     }
 
-    public void setGrupos(List<UsuariosEntity> grupos){
-        mGrupos = grupos;
+    public void setItems(List<UsuariosEntity> userList){
+        itemsList = userList;
         notifyDataSetChanged();
     }
 
@@ -67,12 +67,12 @@ public class GrupoListAdapter extends RecyclerView.Adapter<GrupoListAdapter.Grup
      */
     @Override
     public int getItemCount() {
-        return (mGrupos == null)
+        return (itemsList == null)
                 ? 0
-                : mGrupos.size();
+                : itemsList.size();
     }
 
     public UsuariosEntity getGrupoAtPosition (int position) {
-        return mGrupos.get(position);
+        return itemsList.get(position);
     }
 }

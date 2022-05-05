@@ -10,7 +10,9 @@ import android.widget.RatingBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class NewGroupActivity extends AppCompatActivity {
+import es.upm.roombasic.utils.CifradoCesar;
+
+public class NuevoUsuarioActivity extends AppCompatActivity {
 
     public static final String PARAM_NOMBRE = "es.upm.roombasic.nombre";
     public static final String PARAM_PASSWORD = "es.upm.roombasic.password";
@@ -19,10 +21,11 @@ public class NewGroupActivity extends AppCompatActivity {
     private EditText etName, etPass;
     private RatingBar rbRol;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_grupo);
+        setContentView(R.layout.activity_nuevo_usuario);
         etName = findViewById(R.id.etNombre);
         rbRol = findViewById(R.id.ratingBar);
         etPass = findViewById(R.id.etPassword);
@@ -34,11 +37,12 @@ public class NewGroupActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(etName.getText())) {
                     setResult(RESULT_CANCELED, replyIntent);
                 } else {
+                    CifradoCesar cc = new CifradoCesar();
                     String sNombre = etName.getText().toString();
                     String sPass = etPass.getText().toString();
                     float fRol = rbRol.getRating();
                     replyIntent.putExtra(PARAM_NOMBRE, sNombre);
-                    replyIntent.putExtra(PARAM_PASSWORD, cifrar(sPass,'C', 3 ));
+                    replyIntent.putExtra(PARAM_PASSWORD, cc.cifrar(sPass, CifradoCesar.CAESARCODE_ROT));
                     replyIntent.putExtra(PARAM_ROL, fRol);
                     setResult(RESULT_OK, replyIntent);
                 }
@@ -47,13 +51,15 @@ public class NewGroupActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public String cifrar(String texto, char opcion, int codigo) {
         CifradoCesar cc = new CifradoCesar();
 
         if (Character.toUpperCase(opcion) == 'C') {
-            return cc.cifradoCesar(texto, codigo);
+            return cc.cifrar(texto, codigo);
         } else {
-            return cc.descifradoCesar(texto, codigo);
+            return cc.descifrar(texto, codigo);
         }
     }
+    */
 }

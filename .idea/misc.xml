@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_nuevo_grupo.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_nuevo_usuario.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/layout/recyclerview_item.xml" value="0.296195652173913" />
         <entry key="app/src/main/res/menu/menu.xml" value="0.25885416666666666" />
