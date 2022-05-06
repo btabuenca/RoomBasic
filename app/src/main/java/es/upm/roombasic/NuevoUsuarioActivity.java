@@ -3,6 +3,7 @@ package es.upm.roombasic;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import es.upm.roombasic.utils.CifradoCesar;
 
 public class NuevoUsuarioActivity extends AppCompatActivity {
 
+    static String LOG_TAG = "UPM";
     public static final String PARAM_NOMBRE = "es.upm.roombasic.nombre";
     public static final String PARAM_PASSWORD = "es.upm.roombasic.password";
     public static final String PARAM_ROL = "es.upm.roombasic.rol";
@@ -26,6 +28,13 @@ public class NuevoUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_usuario);
+
+        Intent myIntent = getIntent();
+        String s1 = myIntent.getStringExtra("clave1");
+        String s2= myIntent.getStringExtra("clave2");
+        Log.i(LOG_TAG, "params=" + s1 + " | "+ s2);
+
+
         etName = findViewById(R.id.etNombre);
         rbRol = findViewById(R.id.ratingBar);
         etPass = findViewById(R.id.etPassword);
@@ -51,15 +60,4 @@ public class NuevoUsuarioActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    public String cifrar(String texto, char opcion, int codigo) {
-        CifradoCesar cc = new CifradoCesar();
-
-        if (Character.toUpperCase(opcion) == 'C') {
-            return cc.cifrar(texto, codigo);
-        } else {
-            return cc.descifrar(texto, codigo);
-        }
-    }
-    */
 }

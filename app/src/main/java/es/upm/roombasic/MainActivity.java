@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NuevoUsuarioActivity.class);
+                intent.putExtra("clave1","valor1");
+                intent.putExtra("clave2","valor2");
                 startActivityForResult(intent, NEW_USER_ACTIVITY_REQUEST_CODE);
             }
         });
