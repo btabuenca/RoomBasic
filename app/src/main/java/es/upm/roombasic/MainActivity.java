@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         // Get a new or existing ViewModel from the ViewModelProvider.
         grupoViewModel = ViewModelProviders.of(this).get(UsuariosViewModel.class);
 
-        // Add an observer on the LiveData returned by getAlphabetizedGrupos.
+        // Add an observer on the LiveData returned by getAlphabetizedUsers.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
         grupoViewModel.getAll().observe(this, new Observer<List<UsuariosEntity>>() {
             @Override
-            public void onChanged(@Nullable final List<UsuariosEntity> grupos) {
-                // Update the cached copy of the grupos in the adapter.
-                adapter.setItems(grupos);
+            public void onChanged(@Nullable final List<UsuariosEntity> listUsuariosEntity) {
+                // Update the cached copy of the users in the adapter.
+                adapter.setItems(listUsuariosEntity);
             }
         });
 
@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
                                           @NonNull RecyclerView.ViewHolder target) {
                         return false;
                     }
-
-
 
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
