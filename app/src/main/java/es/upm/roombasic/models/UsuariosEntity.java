@@ -9,11 +9,8 @@ public class UsuariosEntity {
 
     @PrimaryKey(autoGenerate = true)
     protected int uid;
-
     protected String nombre;
-
     protected String password;
-
     protected float rol;
 
     public UsuariosEntity(String nombre, String password, float rol) {

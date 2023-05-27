@@ -10,11 +10,6 @@ public class UsuariosRepository {
     private IUsuariosDAO iItemDAO;
     private LiveData<List<UsuariosEntity>> ldList;
 
-    /**
-     * Constructor
-     *
-     * @param application app
-     */
     public UsuariosRepository(Application application) {
         UsuariosRoomDatabase db = UsuariosRoomDatabase.getDatabase(application);
         iItemDAO = db.grupoDAO();
